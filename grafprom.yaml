@@ -1,0 +1,22 @@
+name: grafprom
+services:
+    grafana-enterprise:
+        container_name: grafana
+        volumes:
+            - grafana-storage:/var/lib/grafana
+        image: grafana/grafana-enterprise
+    prometheus:
+        volumes:
+            - ${path}:/etc/prometheus/prometheus.yml
+        image: prom/prometheus
+    tunnel:
+      container_name: cloudflared-tunnel
+      image: cloudflare/cloudflared
+      restart: unless-stopped
+      command: tunnel run
+      environment:
+        - TUNNEL_TOKEN=${tunneltoken}
+volumes:
+    grafana-storage:
+        external: true
+        name: grafana-storage
