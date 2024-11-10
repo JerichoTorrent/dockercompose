@@ -1,0 +1,21 @@
+name: ghost
+services:
+    ghost:
+        container_name: some-ghost
+        environment:
+            - NODE_ENV=development
+            - database__connection__filename=/var/lib/ghost/content/data/ghost.db
+        volumes:
+            - some-ghost-data:/var/lib/ghost/content
+        image: ghost
+    tunnel:
+      container_name: cloudflared-tunnel99
+      image: cloudflare/cloudflared
+      restart: unless-stopped
+      command: tunnel run
+      environment:
+      - TUNNEL_TOKEN=${tunneltoken}
+volumes:
+    some-ghost-data:
+        external: true
+        name: some-ghost-data
