@@ -20,3 +20,4 @@ curl http://cdn.craftsupport.dev:81/api/cdn/download/docs/grafprom.yaml -o docke
 curl https://raw.githubusercontent.com/prometheus/prometheus/refs/heads/main/documentation/examples/prometheus.yml -o prometheus.yml
 envsubst < docker-compose.yaml > docker-compose.yaml.tmp && mv docker-compose.yaml.tmp docker-compose.yaml
 docker compose up -d
+docker volume create grafana-storage
