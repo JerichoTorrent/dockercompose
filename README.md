@@ -20,11 +20,12 @@ Once your token is generated, you are ready to build the containers and follow t
 
 ## Databases  
 
-At this point, your node creation shoudl be successful, and you can move on to creating the database host, allocations, and servers just like you would with a normal pterodactyl install. However, it is necessary to set ownership to the webserver user so the container will write to logs. Without it you will not be able to create databases either.
+At this point, your node creation should be successful, and you can move on to creating the database host, allocations, and servers just like you would with a normal pterodactyl install. However, it is necessary to set ownership to the webserver user so the container will write to logs. Without it you will not be able to create databases either.
 `cd` into the folder with `docker-compose.yaml` and execute `docker compose exec panel chown -R nginx: /app/storage/logs/`
 As of the time of this message, you will also need to add two lines to `docker-compose.yaml`:
 In between APP_ENV and APP_ENVIRONMENT_ONLY, add:
-```      HASHIDS_SALT: <characters> # generate 20 unique alphanumeric characters. If using special characters, put it in quotes
+```
+      HASHIDS_SALT: <characters> # generate 20 unique alphanumeric characters. If using special characters, put it in quotes
       HASHIDS_LENGTH: 8
 ```
 Always take your docker stack down before editing `docker-compose.yaml`: `docker compose down` then after editing, `docker compose up -d`
@@ -35,8 +36,10 @@ Now you can create databases in your panel, both client and admin, without error
 If you want to use [Blueprint](https://blueprint.zip) extensions, we need to yet again modify the docker-compose file.
 `nano docker-compose.yaml`
 Add the following lines under mounts:
-```      - "/srv/pterodactyl/extensions/:/blueprint_extensions"
-      - "app:/app"```
+```
+      - "/srv/pterodactyl/extensions/:/blueprint_extensions"
+      - "app:/app"
+```
 Change the panel image to `ghcr.io/blueprintframework/blueprint:v1.11.10`
 `docker compose up -d`
 
