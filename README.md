@@ -31,6 +31,8 @@ In between APP_ENV and APP_ENVIRONMENT_ONLY, add:
 Always take your docker stack down before editing `docker-compose.yaml`: `docker compose down` then after editing, `docker compose up -d`
 Now you can create databases in your panel, both client and admin, without errors if done correctly.
 
+To connect plugins to the database you created in the panel, use `127.0.0.1` as the endpoint. If you're trying to connect a plugin to the database on the server that's on a different machine, or another application (like Litebans-php for example,) use the **public IP** of the machine the database server is hosted on. Port 3306 will already be published in the docker container, but you also need to expose the port with `ufw allow 3306`.
+
 # Blueprint
 
 If you want to use [Blueprint](https://blueprint.zip) extensions, we need to yet again modify the docker-compose file.
